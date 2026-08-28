@@ -1,0 +1,50 @@
+{% extends 'routes/base.html' %}
+{% load static %}
+
+{% block title %}Shortest Route | Smith Colinas{% endblock %}
+
+{% block hero_title %}Path{% endblock %}
+{% block hero_script %}by{% endblock %}
+{% block hero_title_2 %}Duration{% endblock %}
+
+{% block hero_description %}Calculate the most efficient route between two airports.{% endblock %}
+
+{% block content %}
+    <h1>Find Shortest Route</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+
+        <button type="submit">
+            Find Route
+        </button>
+    </form>
+
+    {% if result %}
+        <div class="result-card">
+            <h2>Route Found</h2>
+            
+            <div class="path-container" style="margin-bottom: 20px;">
+                {% for airport in result.0 %}
+                    <span class="path-node">{{ airport.code }}</span>
+                    {% if not forloop.last %}
+                        <span class="path-arrow">→</span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <p>
+                <span class="result-label">Total Duration</span>
+                <span class="result-value">{{ result.1 }} mins</span>
+            </p>
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="error-msg">
+            {{ error }}
+        </div>
+    {% endif %}
+{% endblock %}

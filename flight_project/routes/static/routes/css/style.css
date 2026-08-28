@@ -1,0 +1,516 @@
+/* Custom Premium CSS for Smith Colinas Flights */
+
+:root {
+    /* Rich Architecture-inspired Color Palette */
+    --color-bg-main: #f5f2eb;       /* Soft Sand/Cream */
+    --color-panel-sage: #bec291;    /* Signature Sage/Olive Green */
+    --color-text-dark: #2d3522;     /* Deep Forest/Olive Green */
+    --color-text-muted: #737b62;    /* Soft Olive Gray */
+    --color-card-bg: #eae6d9;       /* Muted Cream Card Background */
+    --color-white: #fdfdfc;         /* Pure Light Cream */
+    --color-border: #bbb6a7;        /* Warm Beige Border */
+    --color-focus: rgba(45, 53, 34, 0.15);
+    
+    /* Notification Status Colors */
+    --color-success-bg: #e2e5c8;
+    --color-success-text: #3c462c;
+    --color-error-bg: #f5e4e0;
+    --color-error-text: #8c3f2d;
+
+    /* Fonts */
+    --font-primary: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-serif: 'Instrument Serif', 'Playfair Display', Georgia, serif;
+}
+
+/* Reset and Global Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg-main);
+    color: var(--color-text-dark);
+    font-family: var(--font-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+/* 1. Header Navigation Styling */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 50px;
+    background-color: transparent;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.main-header .logo a {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: 0.12em;
+    color: var(--color-text-dark);
+}
+
+.main-header .nav-links {
+    display: flex;
+    gap: 32px;
+}
+
+.main-header .nav-links a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--color-text-dark);
+    position: relative;
+    padding: 4px 0;
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
+}
+
+.main-header .nav-links a:hover,
+.main-header .nav-links a.active {
+    opacity: 1;
+}
+
+.main-header .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background-color: var(--color-text-dark);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.main-header .nav-links a:hover::after,
+.main-header .nav-links a.active::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.btn-outline {
+    font-family: var(--font-primary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--color-text-dark);
+    border: 1px solid var(--color-text-dark);
+    padding: 10px 24px;
+    border-radius: 50px;
+    background-color: transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline:hover {
+    background-color: var(--color-text-dark);
+    color: var(--color-bg-main);
+    opacity: 1;
+}
+
+/* 2. Layout Structure */
+.main-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 50px 50px 50px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.split-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: var(--color-white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(45, 53, 34, 0.04);
+    min-height: 580px;
+    width: 100%;
+    border: 1px solid rgba(187, 182, 167, 0.3);
+}
+
+/* Left Hero sage green panel */
+.hero-panel {
+    background-color: var(--color-panel-sage);
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background grid effect matching architectural sketches */
+.hero-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(var(--color-text-dark) 0.5px, transparent 0.5px), 
+        radial-gradient(var(--color-text-dark) 0.5px, transparent 0.5px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+.hero-text-wrapper {
+    margin-top: 40px;
+}
+
+.hero-title {
+    font-size: 5rem;
+    font-weight: 300;
+    line-height: 0.9;
+    color: var(--color-text-dark);
+    display: flex;
+    flex-direction: column;
+    letter-spacing: -0.02em;
+}
+
+.hero-title .title-top,
+.hero-title .title-bottom {
+    font-weight: 400;
+}
+
+.hero-title .title-mid {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 4.8rem;
+    margin-left: 20px;
+    line-height: 0.8;
+    color: var(--color-text-dark);
+}
+
+.hero-desc {
+    font-size: 1.15rem;
+    color: var(--color-text-dark);
+    opacity: 0.9;
+    max-width: 380px;
+    margin-top: 50px;
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+/* Right Content Panel */
+.content-panel {
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--color-white);
+}
+
+.content-body {
+    width: 100%;
+}
+
+.content-body h1 {
+    font-family: var(--font-serif);
+    font-size: 2.8rem;
+    font-weight: 400;
+    margin-bottom: 24px;
+    line-height: 1.1;
+    color: var(--color-text-dark);
+}
+
+.content-body h2 {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 400;
+    margin-top: 30px;
+    margin-bottom: 16px;
+    color: var(--color-text-dark);
+}
+
+/* 3. Messages and Alerts */
+.messages-container {
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.alert {
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+}
+
+.alert-success {
+    background-color: var(--color-success-bg);
+    color: var(--color-success-text);
+    border: 1px solid rgba(60, 70, 44, 0.15);
+}
+
+.alert-error, .alert-warning {
+    background-color: var(--color-error-bg);
+    color: var(--color-error-text);
+    border: 1px solid rgba(140, 63, 45, 0.15);
+}
+
+/* Error message paragraph styling inside page template */
+.error-msg {
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    background-color: var(--color-error-bg);
+    color: var(--color-error-text);
+    border: 1px solid rgba(140, 63, 45, 0.15);
+    margin-top: 20px;
+}
+
+/* 4. Django Form Custom Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 10px;
+}
+
+/* Style form paragraphs generated by form.as_p */
+form p {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+form label {
+    font-family: var(--font-primary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-dark);
+    margin-left: 2px;
+}
+
+form input[type="text"],
+form input[type="number"],
+form select {
+    font-family: var(--font-primary);
+    font-size: 0.95rem;
+    padding: 12px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: var(--color-bg-main);
+    color: var(--color-text-dark);
+    width: 100%;
+    outline: none;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus,
+form select:focus {
+    border-color: var(--color-text-dark);
+    box-shadow: 0 0 0 3px var(--color-focus);
+}
+
+/* Dropdown styling */
+form select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232d3522' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+/* Submit Button Styling */
+form button[type="submit"],
+.btn-primary {
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--color-bg-main);
+    background-color: var(--color-text-dark);
+    border: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.1s ease;
+    margin-top: 10px;
+    display: inline-block;
+    text-align: center;
+}
+
+form button[type="submit"]:hover,
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+form button[type="submit"]:active,
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* Helper text in django form fields */
+.helptext {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-top: 4px;
+}
+
+/* 5. Result Cards & Visualization Styling */
+.result-card {
+    background-color: var(--color-card-bg);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 30px;
+    border: 1px solid rgba(187, 182, 167, 0.4);
+    animation: slideUp 0.4s ease-out;
+}
+
+.result-card p {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    color: var(--color-text-dark);
+}
+
+.result-card p:last-child {
+    margin-bottom: 0;
+}
+
+.result-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    display: block;
+    margin-bottom: 6px;
+}
+
+.result-value {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--color-text-dark);
+}
+
+/* Shortest Route path visual graph representation */
+.path-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 14px 18px;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    border: 1px solid rgba(187, 182, 167, 0.3);
+}
+
+.path-node {
+    background-color: var(--color-panel-sage);
+    color: var(--color-text-dark);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 2px 4px rgba(45, 53, 34, 0.05);
+}
+
+.path-arrow {
+    color: var(--color-text-muted);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* 6. Footer Section */
+.main-footer {
+    text-align: center;
+    padding: 30px;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.02em;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Animations */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .split-card {
+        grid-template-columns: 1fr;
+    }
+    .hero-panel {
+        padding: 40px;
+        min-height: 250px;
+    }
+    .hero-title {
+        font-size: 3.5rem;
+    }
+    .hero-title .title-mid {
+        font-size: 3.2rem;
+    }
+    .hero-desc {
+        margin-top: 30px;
+    }
+    .content-panel {
+        padding: 40px;
+    }
+    .main-header {
+        padding: 24px 30px;
+    }
+    .main-container {
+        padding: 0 30px 30px 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-header {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .main-header .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+    }
+}

@@ -1,0 +1,24 @@
+{% extends 'routes/base.html' %}
+{% load static %}
+
+{% block title %}Create Root Airport | Smith Colinas{% endblock %}
+
+{% block hero_title %}Root{% endblock %}
+{% block hero_script %}of the{% endblock %}
+{% block hero_title_2 %}Network{% endblock %}
+
+{% block hero_description %}Initialize the primary airport node for all flight routing calculations and branch structures.{% endblock %}
+
+{% block content %}
+    <h1>Create Root Airport</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+
+        <button type="submit">
+            Create Airport
+        </button>
+    </form>
+{% endblock %}

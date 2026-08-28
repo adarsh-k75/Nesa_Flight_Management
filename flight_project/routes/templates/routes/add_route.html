@@ -1,0 +1,24 @@
+{% extends 'routes/base.html' %}
+{% load static %}
+
+{% block title %}Add Airport Route | Smith Colinas{% endblock %}
+
+{% block hero_title %}Branch{% endblock %}
+{% block hero_script %}by{% endblock %}
+{% block hero_title_2 %}Connection{% endblock %}
+
+{% block hero_description %}Connect new airports to your network structure dynamically.{% endblock %}
+
+{% block content %}
+    <h1>Add Airport Route</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+
+        <button type="submit">
+            Add Route
+        </button>
+    </form>
+{% endblock %}

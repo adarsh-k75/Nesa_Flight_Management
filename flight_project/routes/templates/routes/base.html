@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Smith Colinas Flights{% endblock %}</title>
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Link to our separate CSS stylesheet -->
+    <link rel="stylesheet" href="{% static 'routes/css/style.css' %}">
+</head>
+<body>
+
+    <!-- Header Navigation Section -->
+    <header class="main-header">
+        <div class="logo">
+            <a href="{% url 'create_root_airport' %}">Nesa_Task</a>
+        </div>
+        <nav class="nav-links">
+            <a href="{% url 'create_root_airport' %}" class="{% if request.resolver_match.url_name == 'create_root_airport' %}active{% endif %}">Create Airport</a>
+            <a href="{% url 'add_route' %}" class="{% if request.resolver_match.url_name == 'add_route' %}active{% endif %}">Add Route</a>
+            <a href="{% url 'find_nth_node' %}" class="{% if request.resolver_match.url_name == 'find_nth_node' %}active{% endif %}">Find Nth Node</a>
+            <a href="{% url 'longest_route' %}" class="{% if request.resolver_match.url_name == 'longest_route' %}active{% endif %}">Longest Route</a>
+            <a href="{% url 'shortest_route' %}" class="{% if request.resolver_match.url_name == 'shortest_route' %}active{% endif %}">Shortest Route</a>
+        </nav>
+        <div class="header-action">
+            <a href="{% url 'shortest_route' %}" class="btn-outline">Quick Router</a>
+        </div>
+    </header>
+
+    <!-- Main Container with Split Card Layout -->
+    <main class="main-container">
+        <div class="split-card">
+            <!-- Left Side: Olive/Sage Panel with Elegant Typography -->
+            <div class="hero-panel">
+                <div class="hero-text-wrapper">
+                    <h1 class="hero-title">
+                        <span class="title-top">{% block hero_title %}Harmony{% endblock %}</span>
+                        <span class="title-mid">{% block hero_script %}by{% endblock %}</span>
+                        <span class="title-bottom">{% block hero_title_2 %}Design{% endblock %}</span>
+                    </h1>
+                </div>
+                <p class="hero-desc">
+                    {% block hero_description %}At Smith Colinas, we design and cultivate optimal routes across global networks.{% endblock %}
+                </p>
+            </div>
+
+            <!-- Right Side: Interactive Forms/Results Panel -->
+            <div class="content-panel">
+                {% if messages %}
+                    <div class="messages-container">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="content-body">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <p>&copy; 2026 Smith Colinas. All rights reserved. Architecting connection graphs with elegance.</p>
+    </footer>
+
+</body>
+</html>

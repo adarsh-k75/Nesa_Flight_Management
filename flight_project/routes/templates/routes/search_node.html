@@ -1,0 +1,40 @@
+{% extends 'routes/base.html' %}
+{% load static %}
+
+{% block title %}Find Nth Node | Smith Colinas{% endblock %}
+
+{% block hero_title %}Search{% endblock %}
+{% block hero_script %}by{% endblock %}
+{% block hero_title_2 %}Traversal{% endblock %}
+
+{% block hero_description %}Locate airports at specific depths of left or right branches.{% endblock %}
+
+{% block content %}
+    <h1>Find Nth Left or Right Node</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+
+        <button type="submit">
+            Search
+        </button>
+    </form>
+
+    {% if result %}
+        <div class="result-card">
+            <h2>Result</h2>
+            <p>
+                <span class="result-label">Airport Code</span>
+                <span class="result-value">{{ result.code }}</span>
+            </p>
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="error-msg">
+            {{ error }}
+        </div>
+    {% endif %}
+{% endblock %}
