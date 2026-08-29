@@ -43,6 +43,19 @@ class AirportRouteForm(forms.Form):
 
         return code
 
+    def clean(self):
+        cleaned_data = super().clean()
+        parent = cleaned_data.get("parent_airport")
+        position = cleaned_data.get("position")
+
+        if parent and position:
+            if position == "left" and parent.left is not None:
+                self.add_error("position", "Left position is already occupied.")
+            elif position == "right" and parent.right is not None:
+                self.add_error("position", "Right position is already occupied.")
+
+        return cleaned_data
+
 
 class RootAirportForm(forms.Form):
 
@@ -115,4 +128,4 @@ class ShortestRouteForm(forms.Form):
                     "From and To airports must be different."
                 )
 
-        return cleaned_data
+        return cleaned_data

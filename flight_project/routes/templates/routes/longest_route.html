@@ -3,30 +3,54 @@
 
 {% block title %}Longest Route | Smith Colinas{% endblock %}
 
-{% block hero_title %}Span{% endblock %}
-{% block hero_script %}by{% endblock %}
-{% block hero_title_2 %}Distance{% endblock %}
+{% block hero_title %}Longest{% endblock %}
+{% block hero_script %}Complete{% endblock %}
+{% block hero_title_2 %}Route{% endblock %}
 
-{% block hero_description %}Identify the maximum direct travel duration within the active database.{% endblock %}
+{% block hero_description %}
+Find the longest complete route based on total duration.
+{% endblock %}
 
 {% block content %}
-    <h1>Longest Route</h1>
 
-    {% if longest %}
-        <div class="result-card">
-            <div class="path-container" style="margin-bottom: 20px;">
-                <span class="path-node">{{ longest.from.code }}</span>
-                <span class="path-arrow">→</span>
-                <span class="path-node">{{ longest.to.code }}</span>
-            </div>
-            <p>
-                <span class="result-label">Route Duration</span>
-                <span class="result-value">{{ longest.duration }} mins</span>
-            </p>
+<h1>Longest Route</h1>
+
+{% if longest %}
+
+    <div class="result-card">
+
+        <div class="path-container">
+
+            {% for airport in longest.0 %}
+
+                <span class="path-node">
+                    {{ airport.code }}
+                </span>
+
+                {% if not forloop.last %}
+                    <span class="path-arrow">→</span>
+                {% endif %}
+
+            {% endfor %}
+
         </div>
-    {% else %}
-        <p class="error-msg" style="background-color: var(--color-card-bg); color: var(--color-text-dark); border-color: var(--color-border);">
-            No routes available.
+
+        <p>
+            <span class="result-label">
+                ROUTE DURATION
+            </span>
+
+            <span class="result-value">
+                {{ longest.1 }} mins
+            </span>
         </p>
-    {% endif %}
+
+    </div>
+
+{% else %}
+
+    <p>No route found.</p>
+
+{% endif %}
+
 {% endblock %}
