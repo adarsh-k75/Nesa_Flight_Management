@@ -6,6 +6,14 @@ from django.db import models
 
 class Airport(models.Model):
     code = models.CharField(max_length=10, unique=True)
+    
+    parent = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="children"
+    )
 
     left = models.ForeignKey(
         "self",

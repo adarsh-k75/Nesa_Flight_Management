@@ -9,12 +9,10 @@ def add_route(request):
 
     if request.method == "POST":
 
-        # Create the form with the submitted data
         form = AirportRouteForm(request.POST)
 
         if form.is_valid():
 
-            # Get validated values from the form
             parent = form.cleaned_data["parent_airport"]
             code = form.cleaned_data["airport_code"]
             position = form.cleaned_data["position"]
@@ -22,7 +20,8 @@ def add_route(request):
 
             # Create the new airport/node
             child = Airport.objects.create(
-                code=code
+                code=code,
+                parent=parent
             )
 
             if position == "left":
@@ -76,7 +75,6 @@ def add_route(request):
             return redirect("add_route")
 
     else:
-        # Empty form for GET request
         form = AirportRouteForm()
 
     return render(
@@ -210,46 +208,75 @@ def longest_route(request):
         }
     )
 
-def find_path(current, target, path=None, total_duration=0):
+def shortest_path(current, target, path=None, duration=0, visited=None):
 
     if path is None:
         path = []
 
-    # Add current airport to the path
-    path.append(current)
+    if visited is None:
+        visited = set()
 
-    # We reached the destination
+    # Add current airport
+    path = path + [current]
+    visited.add(current)
+
+    # Target found
     if current == target:
-        return path, total_duration
+        return path, duration
 
-    # Check the left child
-    if current.left:
+    routes = []
 
-        result = find_path(
+    # LEFT
+    if current.left and current.left not in visited:
+        result = shortest_path(
             current.left,
             target,
-            path.copy(),
-            total_duration + current.left_duration
+            path,
+            duration + current.left_duration,
+            visited.copy()
         )
 
         if result:
-            return result
+            routes.append(result)
 
-    # Check the right child
-    if current.right:
-
-        result = find_path(
+    # RIGHT
+    if current.right and current.right not in visited:
+        result = shortest_path(
             current.right,
             target,
-            path.copy(),
-            total_duration + current.right_duration
+            path,
+            duration + current.right_duration,
+            visited.copy()
         )
 
         if result:
-            return result
+            routes.append(result)
 
-    # Target not found from this branch
-    return None
+    # PARENT
+    if current.parent and current.parent not in visited:
+
+        if current.parent.left == current:
+            parent_duration = current.parent.left_duration
+        else:
+            parent_duration = current.parent.right_duration
+
+        result = shortest_path(
+            current.parent,
+            target,
+            path,
+            duration + parent_duration,
+            visited.copy()
+        )
+
+        if result:
+            routes.append(result)
+
+    # No route
+    if not routes:
+        return None
+
+    # Return route with smallest duration
+    return min(routes, key=lambda x: x[1])
 
 def shortest_route(request):
 
@@ -265,8 +292,7 @@ def shortest_route(request):
             from_airport = form.cleaned_data["from_airport"]
             to_airport = form.cleaned_data["to_airport"]
 
-            # Find path between the two airports
-            result = find_path(
+            result = shortest_path(
                 from_airport,
                 to_airport
             )
